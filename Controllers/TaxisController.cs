@@ -19,15 +19,13 @@ namespace FleetManagement.Controllers
             _context = context;
         }
 
-        // GET: api/taxis
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Taxi>>> GetTaxis(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> ListTaxis(int pageNumber, int pageSize)
         {
-            var taxis = await _context.Taxis
-                                      .Skip((pageNumber - 1) * pageSize)
-                                      .Take(pageSize)
-                                      .ToListAsync();
-            return Ok(taxis);
+            List<Taxi> ListTaxi = await _context.Taxis.Skip((pageNumber - 1) * pageSize)
+           .Take(pageSize).ToListAsync();
+
+            return Ok(ListTaxi);
         }
     }
 }
